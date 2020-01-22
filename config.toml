@@ -1,0 +1,49 @@
+## Basic Configuration
+baseurl = "https://example.com/"
+languageCode = "en"
+
+title = "tatusl.dev"
+theme = "hyde-hyde"
+
+summarylength = 5
+
+paginate = 5
+
+## Site Settings
+[params]
+    author = "Tatu Seppä-Lassila"
+    title = "lol"
+    description = "Tech blog about DevOps, cloud, and other computer things"
+    authorimage = "/img/face.jpg"
+    dateformat = "2 Jan, 2006"
+
+    # sidebar, copyright & license
+    copyright = "Tatu Seppä-Lassila"
+    showBuiltWith = true
+
+    # https://highlightjs.org
+    highlightjs = true
+    highlightjsstyle = "github"
+
+    postNavigation = false
+
+    # Table of contents
+    #toc = none, "hugo", or "tocbot"
+
+## Social Accounts
+[params.social]
+    github = "tatusl"
+    twitter = "tatusl"
+    linkedin = "tatuseppalassila"
+
+## Main Menu
+[[menu.main]]
+    name = "Posts"
+    weight = 100
+    identifier = "posts"
+    url = "/posts/"
+[[menu.main]]
+    name = "About"
+    identifier = "about"
+    weight = 200
+    url = "/about/"

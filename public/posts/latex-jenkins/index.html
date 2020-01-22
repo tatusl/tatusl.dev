@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.59.1" />
+
+    
+    
+    
+
+<title>Compile LaTex documents with Jenkins and publish pdf files automatically • tatusl.fi</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Compile LaTex documents with Jenkins and publish pdf files automatically"/>
+<meta name="twitter:description" content="Writing my master&rsquo;s thesis has been one of my main projects since September last year."/>
+
+<meta property="og:title" content="Compile LaTex documents with Jenkins and publish pdf files automatically" />
+<meta property="og:description" content="Writing my master&rsquo;s thesis has been one of my main projects since September last year." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/posts/latex-jenkins/" />
+<meta property="article:published_time" content="2016-05-26T11:20:56+02:00" />
+<meta property="article:modified_time" content="2016-05-26T11:20:56+02:00" /><meta property="og:site_name" content="lol" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/hyde-hyde.58702bfb212aac8237c2102054a9b84fb85e6f5e3148e9c7742d8aa51f7e7df8.css" integrity="sha256-WHAr&#43;yEqrII3whAgVKm4T7heb14xSOnHdC2KpR9&#43;ffg=">
+
+
+<link rel="stylesheet" href="/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" integrity="sha256-J0Tcv4oLLnT4pQ5LNOX0Qb58&#43;TzH3icCkSHGoJ&#43;ed7w=" media="print">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+    
+
+</head>
+
+
+    <body class=" ">
+    
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://example.com/">tatusl.fi</a>
+      </span>
+      
+        
+        
+        
+        <div class="author-image">
+          <img src="https://example.com/img/face.jpg" alt="Author Image" class="img--circle img--headshot element--center">
+        </div>
+        
+      
+      
+      <p class="site__description">
+         Tech blog DevOps, cloud, and other computer things 
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">tatusl.fi</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/posts/">
+						<span>Posts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/about/">
+						<span>About</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/tatusl" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	<a href="https://github.com/tatusl" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	<a href="https://linkedin.com/in/tatuseppalassila" rel="me"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2020 Tatu Seppä-Lassila
+  
+</div>
+
+
+<div class="builtwith">
+Built with <a href="https://gohugo.io">Hugo</a> ❤️ <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+</div>
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+    
+<article>
+  <header>
+    <h1>Compile LaTex documents with Jenkins and publish pdf files automatically</h1>
+    
+    
+<div class="post__meta">
+    
+    
+      <i class="fas fa-calendar-alt"></i> 26 May, 2016
+    
+    
+    
+    
+    
+    <br/>
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+
+<p>Writing my master&rsquo;s thesis has been one of my main projects since September last year. Luckily, the end is near and my thesis is finished soon. At the start of my project, I wanted to come up with a solution where I can locally edit LaTeX files with Texmaker and at the end of a writing session push the changes to Git repository. After that the system would automatically compile Latex to pdf and publish the pdf file to the webserver automatically. Advantage of this is that I can provide my supervisors single URL which always points to the latest of the thesis. With right packages installed, LaTeX can be done in Linux command line. This means the task can be automated with Jenkins.</p>
+
+<h2 id="defining-the-jenkins-build-job">Defining the Jenkins build job</h2>
+
+<p>I like to keep my LaTeX sources in Git repository for proper version control. So, first thing to do was to  install Git plugin for Jenkins. I used web hooks in GitHub to trigger the build after every commit to the repository. I created a new freestyle project, selected Git from the source code management section and provided URL to my repository. I also selected &ldquo;Poll SCM&rdquo; option from Build Triggers section without specifying the interval. This enables the ability to use GitHub web hook to trigger the build job. The only build step is to execute build.sh script which is located in the repository. The script will take care of compiling LaTeX sources to pdf, creating diff files and transferring the output pdf file to a remote server. The main idea of the script is taken from a GitHub Gist, but I can&rsquo;t remember the author, so I can&rsquo;t credit him/her. Below are contents of my build.sh.</p>
+
+<pre><code class="language-bash">#!/bin/sh
+
+TEX_FILE_NAME=main
+REMOTE_HOST=address of remote hosts
+REMOTE_USER=remote user
+REMOTE_DIR=path to remote directory
+
+# Save the current commit id and cut it
+CURRENT=`git rev-parse HEAD | cut -c -10`
+
+# Compile the LaTex stuff
+pdflatex -interaction=batchmode $TEX_FILE_NAME.tex &gt; /dev/null
+bibtex -terse $TEX_FILE_NAME
+pdflatex -interaction=batchmode $TEX_FILE_NAME.tex &gt; /dev/null
+pdflatex -interaction=batchmode $TEX_FILE_NAME.tex
+
+# Create versions dir if it does not exist
+ssh $REMOTE_USER@$REMOTE_HOST &quot;mkdir -p $REMOTE_DIR/versions&quot;
+
+# Create a folder for the new build
+NOW=$(date +&quot;%d%m%Y-%H%M&quot;)
+OUT_DIR=$REMOTE_DIR/versions/$NOW-$CURRENT
+ssh $REMOTE_USER@$REMOTE_HOST &quot;mkdir $OUT_DIR&quot;
+
+# Move the compiled pdf to the output directory (versions dir)
+scp $TEX_FILE_NAME.pdf $REMOTE_USER@$REMOTE_HOST:$OUT_DIR/gradu_seppa-lassila_$NOW-$CURRENT.pdf
+
+# Get diff and copy to remote server (versions dir)
+git diff HEAD^ HEAD | pygmentize -l diff -f html -O full | ssh $REMOTE_USER@$REMOTE_HOST &quot; cat &gt; \&quot;$OUT_DIR\&quot;/diff-\&quot;$CURRENT\&quot;.html &quot;
+
+# Move the compiled pdf to the output directory (lastest version, root dir)
+scp $TEX_FILE_NAME.pdf $REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/gradu_seppa-lassila_latest.pdf
+
+# Get diff and copy to remote server (latest version, root dir)
+git diff HEAD^ HEAD | pygmentize -l diff -f html -O full | ssh $REMOTE_USER@$REMOTE_HOST &quot; cat &gt; \&quot;$REMOTE_DIR\&quot;/diff-latest.html &quot;
+
+</code></pre>
+
+<p>To summarize, the script:</p>
+
+<ul>
+<li>defines some helper variables (details omitted)</li>
+<li>compiles LaTeX files to pdf</li>
+<li>creates the directory for old versions if it does not exist in the remote server</li>
+<li>creates subfolder for this current build in the remote server</li>
+<li>transfers the compiled pdf file to the subfolder in old versions directory</li>
+<li>calculates diff file between this commit and the commit before that. Uses pygmentize for pdf formatting. Pipes the output over ssh to the remote server.</li>
+<li>transfers compiled pdf to the root directory. This file is always the latest version</li>
+<li>likewise, calculates and formats diff file to the root directory</li>
+</ul>
+
+<p>For build to be successful, correct LaTex packages need to be installed. In Ubuntu, texlive packages are a good starting point. Authentication to the remote server is done with ssh keys, so the password does not need to be provided.</p>
+
+<h2 id="result-and-conclusion">Result and conclusion</h2>
+
+<p>The result is following directory structure on the web server:</p>
+
+<p><img src="dir_structure.png" alt="dir_structure.png" /></p>
+
+<p>The versions directory contains subfolder for each commit. That subfolder contains the PDF and diff files.</p>
+
+<p>All in all, configuring Jenkins took some time, but it was worth it in my opinion. That&rsquo;s because this is a kind of fire-and-forget solution and now I don&rsquo;t everytime need to send the latest version to my supervisors.</p>
+
+  </div>
+  
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+    
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+
+    
+
+
+
+    </body>
+</html>
