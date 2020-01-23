@@ -1,5 +1,5 @@
 ## Basic Configuration
-baseurl = "https://condescending-jackson-6dfeb5.netlify.com/"
+baseurl = "https://tatusl.dev/"
 languageCode = "en"
 
 title = "tatusl.dev"
@@ -26,9 +26,6 @@ paginate = 5
     highlightjsstyle = "github"
 
     postNavigation = false
-
-    # Table of contents
-    #toc = none, "hugo", or "tocbot"
 
 ## Social Accounts
 [params.social]
