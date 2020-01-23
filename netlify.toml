@@ -1,3 +1,6 @@
+[context.production]
+  command = "hugo -b $URL/"
+
 # Deploy Preview context:
 # All deploys generated from a pull/merge request
 # will inherit these settings.
