@@ -15,9 +15,26 @@ Instead of storing AWS IAM credentials to `~/.aws/credentials` in clear-text, cr
 
 After the "main" IAM access keys are stored to secure key store, AWS Vault exposes short-lived temporary access keys for shell and other process using AWS's Security Token Service (STS) `GetSessionToken` or `AssumeRole` API calls. As the temporary keys are soon expired, consequences of leaking keys are less severe.
 
-Installation and basic configuration is rather straight-forward process by following the instructions in the GitHub repo. Main motivation for writing this post is that at least for me it took sometime get the the configuration right with MFA enabled roles. Furthermore, in my opinion integration with aws-cli using credential process makes day-to-day use easier for example with Terraform.
+Installation and basic configuration is rather straight-forward process by following the instructions in the GitHub repo. Main motivation for writing this post is that at least for me it took sometime get the the configuration right with MFA enabled roles. Furthermore, in my opinion integration with aws-cli using credential process makes day-to-day usage easier for example with Terraform.
+
+## Integration with aws-cli using credential_process
+
+AWS Vault can be seamlessly integrated with aws-cli using `credential_process` attribute for `aws-cli`. This means that AWS Vault provides AWS access keys for aws-cli in json format. See example config below:
+
+```
+[profile example]
+region=eu-west-1
+credential_process=aws-vault exec example --json --prompt=osascript
+output=json
+```
+
+With example configuration, there is no need run `aws-vault exec` separately, but aws-cli can use similarly than without AWS Vault.
 
 ## Handling MFA in multi-account model
+
+When working with accounts which have MFA enabled for AWS API, AWS Vault asks for new TOTP token when it needs be refresh. `--prompt` attribute for `aws-vault exec` decides which UI technology is responsible for displaying the TOTP token prompt. Possible values are `osascript`, `zenity` and `terminal`.
+
+`mfa_serial` needs to be defined only for IAM login account. It can be omitted for accounts, which are accessed by assuming a role. Example config can be found below:
 
 ```
 # $HOME/.aws/config
@@ -34,8 +51,10 @@ role_session_name = $YOUR_EMAIL
 source_profile = central-iam
 ```
 
-## Integration to aws-cli with credential_process
+With example configuration, each AWS profile can be used by exporting the `AWS_PROFILE` environment variable and passing desired profile name as value. There are multiple tools which make switching between profiles easier, I use [aws plugin for zsh](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/aws)
 
 ## Configuring macOS Keychain lock timeout
+
+macOS lock certain keychain in 15 minutes by default. This can be changed by opening Keychain Access, right-clicking the keychain created for aws-vault, selecting "Change Settings for Keychain" and then changing the value of "Lock after" field. Deciding value for settings like this is always balancing between usability and security.
 
 ## Conclusion
