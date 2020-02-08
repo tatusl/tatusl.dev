@@ -15,7 +15,7 @@ Instead of storing AWS IAM credentials to `~/.aws/credentials` in clear-text, cr
 
 After the "main" IAM access keys are stored to secure key store, AWS Vault exposes short-lived temporary access keys for shell and other process using AWS's Security Token Service (STS) `GetSessionToken` or `AssumeRole` API calls. As the temporary keys are soon expired, consequences of leaking keys are less severe.
 
-Installation and basic configuration is rather straight-forward process by following the instructions in the GitHub repo. Main motivation for writing this post is that at least for me it took sometime get the the configuration right with MFA enabled roles. Furthermore, in my opinion integration with aws-cli using credential process makes day-to-day usage easier for example with Terraform.
+Installation and basic configuration is rather straight-forward process by following the instructions in the GitHub repo. Main motivation for writing this post is that at least for me it took sometime to get the configuration right with MFA enabled roles. Furthermore, in my opinion integration with aws-cli using credential process makes day-to-day usage easier for example with Terraform.
 
 ## Integration with aws-cli using credential_process
 
