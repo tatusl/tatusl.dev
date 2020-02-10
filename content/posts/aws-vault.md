@@ -1,6 +1,6 @@
 ---
 title: "Protecting AWS access keys with AWS Vault"
-date: 2020-01-25T22:22:43+02:00
+date: 2020-02-10T19:22:43+02:00
 tags: ["aws", "security"]
 draft: false
 ---
