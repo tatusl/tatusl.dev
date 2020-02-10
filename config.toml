@@ -12,7 +12,7 @@ paginate = 5
 ## Site Settings
 [params]
     author = "Tatu Seppä-Lassila"
-    title = "lol"
+    title = "tatusl.dev"
     description = "Tech blog about DevOps, cloud, and other computer things"
     authorimage = "/img/face.jpg"
     dateformat = "2 Jan, 2006"
