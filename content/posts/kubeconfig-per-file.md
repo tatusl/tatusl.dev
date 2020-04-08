@@ -17,7 +17,7 @@ Another approach to configuration management is to use `KUBECONFIG` environment 
 loadkubeconfig() {
     kubeconfig=""
 
-    for kubecfg in "$HOME/.kube/config.d/"/*; do
+    for kubecfg in "$HOME/.kube/config.d/"*; do
        kubeconfig+=$kubecfg:
     done
 
