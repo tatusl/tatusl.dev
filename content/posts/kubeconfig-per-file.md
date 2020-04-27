@@ -1,6 +1,6 @@
 ---
 title: "Load Kubernetes configs from different files"
-date: 2020-04-27T08:44:52+02:00
+date: 2020-04-27T08:45:43+03:00
 tags: ["kubernetes", "kubectl"]
 draft: false
 ---
