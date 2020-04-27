@@ -11,7 +11,7 @@ Another approach to configuration management is to use `KUBECONFIG` environment 
 
 ## Appending multiple files to KUBECONFIG environment variable
 
-`KUBECONFIG` environment variable can point to multiple files by separating files path with a colon (`:`). In my kube config management approach, each cluster has its own config file in `$HOME/kube/.config.d`. These file paths are then appended to `KUBECONFIG` environment variable at shell startup. Additionally, I have wrapped this to zsh function, so I can load kube configs only on-demand:
+`KUBECONFIG` environment variable can point to multiple files by separating file paths with a colon (`:`). In my kube config management approach, each cluster has its own config file in `$HOME/kube/.config.d`. These file paths are then appended to `KUBECONFIG` environment variable at shell startup. Additionally, I have wrapped this to zsh function, so I can load kube configs only on-demand:
 
 ```
 loadkubeconfig() {
@@ -29,9 +29,7 @@ Luckily `kubectl` does not care about the trailing colon, so things can be kept 
 
 ## Other stuff to make my life easier with kubectl
 
-In addition to loading kube configs, I created a function for unloading them. This simply unsets the `KUBECONFIG` environment variable.
-
-Unload:
+In addition to loading kube configs, I created a function for unloading them. This simply unsets the `KUBECONFIG` environment variable:
 
 ```
 unloadkubeconfig() {
