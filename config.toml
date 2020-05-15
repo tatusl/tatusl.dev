@@ -44,3 +44,8 @@ paginate = 5
     identifier = "about"
     weight = 200
     url = "/about/"
+[[menu.main]]
+    name = "Notes"
+    identifier = "notes"
+    weight = 300
+    url = "https://notes.tatusl.dev"
