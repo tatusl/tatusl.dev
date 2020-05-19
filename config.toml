@@ -29,6 +29,7 @@ paginate = 5
 
 ## Social Accounts
 [params.social]
+    rss = true
     github = "tatusl"
     twitter = "tatusl"
     linkedin = "tatuseppalassila"
