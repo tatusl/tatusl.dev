@@ -27,8 +27,7 @@ paginate = 10
 
 ## Social Accounts
 [params.social]
-    rss = "posts/index.xml"
-    github = "tatusl"
+    rss = "/posts/index.xml"
     twitter = "tatusl"
     linkedin = "tatuseppalassila"
 
