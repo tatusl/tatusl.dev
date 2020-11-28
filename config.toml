@@ -5,9 +5,7 @@ languageCode = "en"
 title = "tatusl.dev"
 theme = "hyde-hyde"
 
-summarylength = 5
-
-paginate = 5
+paginate = 10
 
 ## Site Settings
 [params]
