@@ -1,5 +1,5 @@
 ---
-title: "Deploying Azure Application Gateway Ingress Controller with Terraform and Helm"
+title: "Deploy Azure Application Gateway Ingress Controller with Terraform and Helm"
 date: 2020-11-28T11:41:00+02:00
 tags: ["azure", "kubernetes"]
 draft: false
