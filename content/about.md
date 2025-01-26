@@ -1,6 +1,7 @@
 ---
 title: "About"
 draft: false
+date: ""
 ---
 
 Hello, I'm Tatu Seppä-Lassila from Finland. This blog is a place where I write about my experiences, thoughts, and ideas related to technology.
