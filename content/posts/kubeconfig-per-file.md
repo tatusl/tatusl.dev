@@ -13,7 +13,7 @@ Another approach to configuration management is to use `KUBECONFIG` environment 
 
 `KUBECONFIG` environment variable can point to multiple files by separating file paths with a colon (`:`). In my kube config management approach, each cluster has its own config file in `$HOME/kube/.config.d`. These file paths are then appended to `KUBECONFIG` environment variable at shell startup. Additionally, I have wrapped this to zsh function, so I can load kube configs only on-demand. Zsh functions can be stored to for example `$HOME/.zshrc`:
 
-```
+```shell
 loadkubeconfig() {
     kubeconfig=""
 
@@ -31,7 +31,7 @@ Luckily `kubectl` does not care about the trailing colon, so things can be kept 
 
 In addition to loading kube configs, I created a function for unloading them. This simply unsets the `KUBECONFIG` environment variable:
 
-```
+```shell
 unloadkubeconfig() {
     unset KUBECONFIG
 }
@@ -39,7 +39,7 @@ unloadkubeconfig() {
 
 Both of the function names are rather long, so I aliased them in the following manner. Like zsh functions, aliases can be stored to `$HOME/.zshrc`:
 
-```
+```shell
 alias lkc='loadkubeconfig'
 alias ukc='unloadkubeconfig'
 ```

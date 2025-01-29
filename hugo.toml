@@ -1,0 +1,47 @@
+baseURL = 'https://tatusl.dev/'
+languageCode = 'en-us'
+title = 'tatusl.dev'
+theme = 'nostyleplease-custom'
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min      = "0.41.0"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        block = true
+        title = true
+
+  [markup.highlight]
+    anchorLineNos      = false
+    codeFences         = true
+    guessSyntax        = false
+    hl_Lines           = ''
+    hl_inline          = false
+    lineAnchors        = ''
+    lineNoStart        = 1
+    lineNos            = false
+    lineNumbersInTable = true
+    noClasses          = true
+    noHl               = false
+    style              = 'solarized-dark'
+    tabWidth           = 4
+
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel   = 3
+    ordered    = false
+
+[params]
+  description = "Jeeeeeeeeee!"
+
+  [params.theme_config]
+    appearance        = "auto"
+    back_home_text    = "back"
+    date_format       = "02-01-2006"
+    isListGroupByDate = true
+    isShowFooter      = true
+    showDescription   = true

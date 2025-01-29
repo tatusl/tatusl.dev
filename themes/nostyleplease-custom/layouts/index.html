@@ -1,0 +1,12 @@
+{{ define "main" }}
+
+<header>
+    <h1 class="site-title">{{ $.Site.Title }}</h1>
+    {{- if $.Site.Params.theme_config.show_description -}}
+        <p>{{ $.Site.Params.description }}</p>
+    {{- end -}}
+</header>
+{{ .Content }}
+{{ partial "post_list.html" (dict "context" . "collection" $.Site.Pages) }}
+
+{{ end }}

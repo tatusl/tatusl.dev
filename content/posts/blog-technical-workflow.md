@@ -26,14 +26,14 @@ To summarize the workflow, Pelican sources are stored to a Git repository in Git
 
 The trickiest part in the setup is dealing with the ssh keys in Travis CI. Ssh keys are used in order to securely upload the files to the webserver. Let's start with generating ssh keypair.
 
-```
+```shell
 ssh-keygen -t rsa
 ```
 Store the keys to a convenient place and don't add passphrases. Add the public key to the **authorized_keys** file of the web server
 
 It's not a good idea to store the private key (which is used to login to the webserver) to a public repository. That's why the encryption of the key is needed. This can be done using Ruby gem called Travis. Install the gem:
 
-```
+```shell
 gem install travis
 ```
 
@@ -43,7 +43,7 @@ In your repository folder, use command **travis login** to authenticate. Type in
 
 Travis CI uses **.travis.yml** for deciding how to build and deploy the project. Here is the **.travis.yml** file I'm using for this blog.
 
-```
+```shell
 branches:
   only:
   - master

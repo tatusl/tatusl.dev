@@ -1,0 +1,23 @@
+{{ define "main" }}
+{{ partial "back_link.html" .}}
+
+<article>
+    {{ if not .Params.hideDate }}
+      <p>
+          <time datetime="{{ .date }}">
+              {{ .date | time.format site.params.theme_config.date_format }}
+          </time>
+      </p>
+    {{ end }}
+
+    <h1>{{ .Title }}</h1>
+
+    {{ if .Params.toc }}
+        <aside {{ if .Params.tocBorder }} class="toc" {{ end }}>
+            {{ .TableOfContents }}
+        </aside>
+    {{ end }}
+
+    {{ .Content }}
+</article>
+{{ end }}
