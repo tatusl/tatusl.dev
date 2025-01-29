@@ -5,7 +5,9 @@
         <main class="page-content" aria-label="Content">
             <div class="w">
                 {{- block "main" . }}{{- end }}
-                {{ partial "footer.html" }}
+                <div class="footer">
+                    {{ partial "footer.html" }}
+                </div>
             </div>
         </main>
     </body>

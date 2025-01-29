@@ -21,7 +21,7 @@ Installation and basic configuration is rather straight-forward process by follo
 
 AWS Vault can be seamlessly integrated with aws-cli using `credential_process` attribute for `aws-cli`. This means that AWS Vault provides AWS access keys for aws-cli in json format. See example configuration below:
 
-```
+```shell
 [profile example]
 region=eu-west-1
 credential_process=aws-vault exec example --json --prompt=osascript
@@ -38,7 +38,7 @@ When working with accounts which have MFA enabled for AWS API, AWS Vault asks fo
 
 `mfa_serial` needs to be defined only for IAM login account. It can be omitted for accounts, which are accessed by assuming a role. Example configuration can be found below:
 
-```
+```shell
 # $HOME/.aws/config
 
 [profile central-iam]

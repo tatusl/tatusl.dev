@@ -66,7 +66,7 @@ For build to be successful, correct LaTex packages need to be installed. In Ubun
 
 The result is following directory structure on the web server:
 
-![dir_structure.png](dir_structure.png)
+![dir_structure.png](/images/dir_structure.png)
 
 The versions directory contains subfolder for each commit. That subfolder contains the PDF and diff files.
 

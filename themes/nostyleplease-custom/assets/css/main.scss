@@ -1,5 +1,5 @@
 // -------------- THEME SWITCHER -------------- //
-@mixin theme($--bg-color, $--primary-text-color, $--secondary-text-color, $--link-color, $--visited-link-color, $--highlight) {
+@mixin theme($--bg-color, $--primary-text-color, $--secondary-text-color, $--link-color, $--visited-link-color, $--highlight, $--code-background-color, $--code-text-color) {
   background-color: $--bg-color;
 
   color: $--primary-text-color;
@@ -26,8 +26,8 @@
   }
 
   code:not(pre > code) {
-    background-color: $--primary-text-color;
-    color: $--bg-color;
+    background-color: $--code-background-color;
+    color: $--code-text-color;
   }
 
   *:target {
@@ -46,17 +46,19 @@
 
   figcaption { color: $--secondary-text-color; }
 
+  /*
   blockquote {
     border: thin solid $--primary-text-color;
   }
+  */
 }
 
 @mixin dark-appearance {
-  @include theme(#000000, #ffffff, #000000, #79a8ff, #f78fe7, #2f3849); // modus-vivendi
+  @include theme(#000000, #ffffff, #000000, #79a8ff, #f78fe7, #2f3849, #8b8181, #000000); // modus-vivendi
 }
 
 @mixin light-appearance {
-  @include theme(#ffffff, #000000, #595959, #3548cf, #8f0075, #dae5ec); // modus-operandi
+  @include theme(#ffffff, #000000, #595959, #3548cf, #8f0075, #dae5ec, #7e7b8d, #ffffff); // modus-operandi
 }
 
 body[a="dark"] { @include dark-appearance; }
@@ -87,7 +89,12 @@ h2, h3, h4, h5, h6 { margin-top: 1.5rem; }
 
 p { margin: 1rem 0; }
 
+
 li { margin: 0.4rem 0; }
+
+article {
+  text-align: justify;
+}
 
 a {
   text-decoration: none;
@@ -134,11 +141,13 @@ code.has-jax {
   font-size: 100%;
 }
 
+/*
 blockquote {
   padding: 1rem;
 
   p { margin: 0; }
 }
+*/
 
 img {
   max-width: 100%;
@@ -171,11 +180,28 @@ details[open] summary {
 }
 
 .w {
-  max-width: 640px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 4rem 2rem;
 }
 
 .toc {
   padding: 1rem;
+}
+
+.site-title {
+  font-size: 2.5rem;
+}
+
+
+.post-item {
+  margin-bottom: 0.7rem;
+}
+
+.post-list {
+  margin-top: 2rem;
+}
+
+.footer {
+  margin-top: 2rem;
 }

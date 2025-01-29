@@ -1,8 +1,0 @@
-[[entries]]
-title = "Posts"
-
-  [entries.post_list]
-  limit = 15
-  show_more = true
-  show_more_text = "See all posts"
-  show_more_url = "posts"
