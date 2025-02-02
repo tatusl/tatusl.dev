@@ -1,5 +1,6 @@
 +++
 date = "2025-02-02T16:30:48Z"
+draft = false
 title = 'Building Customized OS Images on Hetzner Cloud With Packer'
 +++
 
