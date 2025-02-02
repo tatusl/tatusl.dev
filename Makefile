@@ -20,3 +20,7 @@ new-post:
 		-v "$${PWD}:/src" \
 		"${CONTAINER_IMAGE_TAG}-${HUGO_VERSION}" \
 		new content/posts/"$$post_filename"
+
+refresh-post-date:
+	@read -p "Enter post filename: " post_filename; \
+  ./helpers/refresh_post_date.py "content/posts/$$post_filename"
