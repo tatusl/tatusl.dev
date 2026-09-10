@@ -1,4 +1,4 @@
-HUGO_VERSION := "0.142.0"
+HUGO_VERSION := "0.165.0"
 CONTAINER_NAME := "tatusl.dev-hugo-dev"
 CONTAINER_IMAGE_TAG := "hugomods/hugo:base-non-root"
 HUGO_PORT := "8080"
