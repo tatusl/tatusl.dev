@@ -1,12 +1,12 @@
 baseURL = 'https://tatusl.dev/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'tatusl.dev'
 theme = 'nostyleplease-custom'
 
 [module]
   [module.hugoVersion]
     extended = true
-    min      = "0.41.0"
+    min      = "0.158.0"
 
 [markup]
   [markup.goldmark]
