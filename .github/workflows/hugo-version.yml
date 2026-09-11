@@ -1,0 +1,108 @@
+name: Hugo version
+
+# Checks weekly whether the Hugo version pinned in the Makefile is behind and
+# opens a pull request with the bump when it is. The Makefile is the single
+# source of truth (see README.md), so that one-line change moves both local
+# container builds and Cloudflare Pages builds.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays at 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Resolve versions
+        id: versions
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          current="$(sed -n 's/^HUGO_VERSION[[:space:]]*:=[[:space:]]*"\([^"]*\)".*/\1/p' Makefile)"
+          if [ -z "${current}" ]; then
+            echo "could not read HUGO_VERSION from Makefile" >&2
+            exit 1
+          fi
+          latest="$(sh ./helpers/latest_hugo_version.sh)"
+
+          {
+            echo "current=${current}"
+            echo "latest=${latest}"
+          } >> "${GITHUB_OUTPUT}"
+
+          if [ "${current}" = "${latest}" ]; then
+            echo "outdated=false" >> "${GITHUB_OUTPUT}"
+            echo "Hugo \`${current}\` is up to date." >> "${GITHUB_STEP_SUMMARY}"
+          else
+            echo "outdated=true" >> "${GITHUB_OUTPUT}"
+            echo "Hugo \`${current}\` is behind \`${latest}\`." >> "${GITHUB_STEP_SUMMARY}"
+          fi
+
+      # A scheduled run must not reopen a bump that is already waiting for review.
+      - name: Look for an existing pull request
+        id: existing
+        if: steps.versions.outputs.outdated == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: chore/hugo-${{ steps.versions.outputs.latest }}
+          LATEST: ${{ steps.versions.outputs.latest }}
+        run: |
+          set -eu
+          number="$(gh pr list --head "${BRANCH}" --state open --json number --jq '.[0].number // empty')"
+          echo "number=${number}" >> "${GITHUB_OUTPUT}"
+          if [ -n "${number}" ]; then
+            echo "PR #${number} already bumps Hugo to \`${LATEST}\`." >> "${GITHUB_STEP_SUMMARY}"
+          fi
+
+      - name: Bump the pinned version
+        if: steps.versions.outputs.outdated == 'true' && steps.existing.outputs.number == ''
+        env:
+          LATEST: ${{ steps.versions.outputs.latest }}
+        run: |
+          set -eu
+          sed -i "s/^HUGO_VERSION := \".*\"/HUGO_VERSION := \"${LATEST}\"/" Makefile
+          grep -q "^HUGO_VERSION := \"${LATEST}\"$" Makefile
+
+      # Builds the site exactly the way Cloudflare Pages does, so a release that
+      # breaks the build shows up here instead of on the next deploy.
+      - name: Verify the site builds
+        if: steps.versions.outputs.outdated == 'true' && steps.existing.outputs.number == ''
+        run: sh ./build.sh
+
+      - name: Open pull request
+        if: steps.versions.outputs.outdated == 'true' && steps.existing.outputs.number == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE: ${{ github.event.repository.default_branch }}
+          BRANCH: chore/hugo-${{ steps.versions.outputs.latest }}
+          CURRENT: ${{ steps.versions.outputs.current }}
+          LATEST: ${{ steps.versions.outputs.latest }}
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "${BRANCH}"
+          git commit -m "Bump Hugo to ${LATEST}" Makefile
+          git push --force origin "${BRANCH}"
+
+          cat > /tmp/pr-body.md <<EOF
+          Bumps the Hugo version pinned in the \`Makefile\` from \`${CURRENT}\` to
+          \`${LATEST}\`, the newest release that also has a matching
+          \`hugomods/hugo:base-non-root\` image.
+
+          \`build.sh\` built the site with \`${LATEST}\` in this workflow run. Check the
+          [release notes](https://github.com/gohugoio/hugo/releases/tag/v${LATEST}) for
+          deprecations before merging.
+          EOF
+
+          url="$(gh pr create --base "${BASE}" --head "${BRANCH}" \
+            --title "Bump Hugo to ${LATEST}" --body-file /tmp/pr-body.md)"
+          echo "Opened ${url}" >> "${GITHUB_STEP_SUMMARY}"
