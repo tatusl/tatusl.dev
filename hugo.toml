@@ -36,12 +36,9 @@ theme = 'nostyleplease-custom'
     ordered    = false
 
 [params]
-  description = "Jeeeeeeeeee!"
-
   [params.theme_config]
     appearance        = "auto"
     back_home_text    = "back"
     date_format       = "02-01-2006"
     isListGroupByDate = true
     isShowFooter      = true
-    showDescription   = true

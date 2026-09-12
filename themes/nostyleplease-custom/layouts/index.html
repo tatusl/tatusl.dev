@@ -2,11 +2,10 @@
 
 <header>
     <h1 class="site-title">{{ $.Site.Title }}</h1>
-    {{- if $.Site.Params.theme_config.show_description -}}
-        <p>{{ $.Site.Params.description }}</p>
-    {{- end -}}
 </header>
-{{ .Content }}
+<div class="site-description">
+    {{ .Content }}
+</div>
 {{ partial "post_list.html" (dict "context" . "collection" $.Site.Pages) }}
 
 {{ end }}
