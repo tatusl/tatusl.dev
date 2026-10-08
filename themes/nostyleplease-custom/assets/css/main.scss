@@ -48,6 +48,11 @@
 
   figcaption { color: $--secondary-text-color; }
 
+  .theme-toggle {
+    color: $--secondary-text-color;
+    &:hover { color: $--primary-text-color; background-color: $--highlight; }
+  }
+
   .footer {
     border-top: 1px solid $--highlight;
 
@@ -65,11 +70,15 @@
 @mixin dark-appearance {
   @include theme(#121316, #dcdde0, #9a9ea6, #79a8ff, #f78fe7, #2a3242, #26292f, #dcdde0); // softened modus-vivendi
   @include chroma-dark;
+  color-scheme: dark;
+  .theme-toggle .icon-moon { display: none; }
 }
 
 @mixin light-appearance {
   @include theme(#fcfcfb, #1f2328, #5c6370, #3548cf, #8f0075, #dae5ec, #eceef1, #1f2328); // softened modus-operandi
   @include chroma-light;
+  color-scheme: light;
+  .theme-toggle .icon-sun { display: none; }
 }
 
 body[a="dark"] { @include dark-appearance; }
@@ -256,9 +265,37 @@ details[open] summary {
 }
 
 .w {
+  position: relative;
   max-width: 680px;
   margin: 0 auto;
   padding: 4rem 2rem;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 1.25rem;
+  right: calc(2rem - 0.5625rem); // line the icon, not the button, up with the content edge
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s;
+
+  svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 }
 
 .toc {
