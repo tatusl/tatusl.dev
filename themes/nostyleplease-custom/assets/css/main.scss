@@ -46,6 +46,13 @@
 
   figcaption { color: $--secondary-text-color; }
 
+  .footer {
+    border-top: 1px solid $--highlight;
+
+    a, a:visited { color: $--secondary-text-color; }
+    a:hover { color: $--link-color; }
+  }
+
   /*
   blockquote {
     border: thin solid $--primary-text-color;
@@ -293,5 +300,10 @@ details[open] summary {
 }
 
 .footer {
-  margin-top: 2rem;
+  margin-top: 2.25rem;
+  padding-top: 0.875rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-size: 1rem;
 }
