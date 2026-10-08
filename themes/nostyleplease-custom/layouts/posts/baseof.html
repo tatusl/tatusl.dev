@@ -4,6 +4,7 @@
     <body a="{{ $.Site.Params.theme_config.appearance | default "auto" }}">
         <main class="page-content" aria-label="Content">
             <div class="w">
+                {{- partial "theme_toggle.html" . -}}
                 <div class="post-meta">
                     {{ partial "back_link.html" .}}
                     {{ if not .Params.hideDate }}
