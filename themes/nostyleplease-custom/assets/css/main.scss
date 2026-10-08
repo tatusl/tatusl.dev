@@ -74,26 +74,88 @@ body[a="light"] { @include light-appearance; }
 
 // -------------------------------------------- //
 
+// ------------------- FONTS ------------------ //
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-latin-opsz-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-latin-opsz-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-latin-wght-italic.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+$font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+$font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+// -------------------------------------------- //
+
 html { height: 100%; }
 
 body {
-  font-family: monospace;
-  font-size: 16px;
-  line-height: 1.4;
+  font-family: $font-body;
+  font-size: 17px;
+  line-height: 1.65;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin: 0;
   min-height: 100%;
   overflow-wrap: break-word;
 }
 
+code, pre, kbd, samp {
+  font-family: $font-mono;
+  font-variant-ligatures: none; // show -- and => exactly as typed
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.post-date {
+  font-family: $font-mono;
+  font-size: 0.875em;
+  opacity: 0.7;
+}
+
+hr { font-family: $font-mono; }
+
 h2, h3, h4, h5, h6 { margin-top: 1.5rem; }
 
-p { margin: 1rem 0; }
+p {
+  margin: 1rem 0;
+  text-wrap: pretty; // avoid one-word last lines; ignored where unsupported
+}
 
 
 li { margin: 0.4rem 0; }
 
 article {
-  text-align: justify;
+  text-align: left;
 }
 
 a {
@@ -130,8 +192,10 @@ code {
 }
 
 code:not(pre > code) {
-  padding: 0.1em 0.2em;
-  font-size: 90%;
+  padding: 0.1em 0.25em;
+  border-radius: 3px;
+  font-size: 0.875em;
+  white-space: nowrap;
 }
 
 code.has-jax {
@@ -180,7 +244,7 @@ details[open] summary {
 }
 
 .w {
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 4rem 2rem;
 }
