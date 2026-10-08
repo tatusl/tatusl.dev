@@ -25,8 +25,9 @@ theme = 'nostyleplease-custom'
     lineNoStart        = 1
     lineNos            = false
     lineNumbersInTable = true
-    noClasses          = true
+    noClasses          = false
     noHl               = false
+    # Colors come from assets/css/_chroma.scss (light/dark aware) since noClasses = false
     style              = 'solarized-dark'
     tabWidth           = 4
 
