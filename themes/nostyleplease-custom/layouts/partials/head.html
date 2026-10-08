@@ -13,6 +13,7 @@
   </title>
 
 
+  <link rel="preload" href="{{ "fonts/geist-latin-wght-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin />
   <link rel="shortcut icon" type="image/x-icon" href="{{ $.Site.Params.favicon | relURL }}" />
   {{ $options := (dict "outputStyle" "compressed" "enableSourceMap" (not hugo.IsProduction)) }}
   {{ $sass := resources.Get "css/main.scss" }}
