@@ -32,6 +32,8 @@ Even though this is a proof-of-concept solution, I wanted the network architectu
 
 ![infrastructure.svg](/images/infrastructure.svg)
 
+Having cluster nodes in a private subnet meant that I would need some other mechanism for running "Talos machine config apply" than over network. TBC
+
 ### Cloud platform integration
 
 - FluxCD for GitOps
