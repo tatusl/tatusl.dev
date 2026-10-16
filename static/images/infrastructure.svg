@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 830" width="900" height="830"
+     font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif"
+     font-size="13" fill="#1f2430">
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b6472"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="830" fill="#ffffff"/>
+
+  <!-- admin -->
+  <rect x="300" y="16" width="300" height="56" rx="8" fill="#f3f5f8" stroke="#5b6472"/>
+  <text x="450" y="40" text-anchor="middle" font-weight="600">Admin / client</text>
+  <text x="450" y="60" text-anchor="middle" font-size="12" fill="#5b6472">sources in allowed_ips only</text>
+
+  <!-- upcloud -->
+  <rect x="30" y="110" width="840" height="600" rx="14" fill="none" stroke="#9aa4b2" stroke-dasharray="6 4"/>
+  <text x="50" y="136" font-size="13" font-weight="600" fill="#5b6472">UpCloud · zone fi-hel2</text>
+
+  <!-- load balancers -->
+  <rect x="70" y="160" width="350" height="104" rx="8" fill="#f3f5f8" stroke="#5b6472"/>
+  <text x="245" y="186" text-anchor="middle" font-weight="600">Managed load balancer — Terraform</text>
+  <text x="245" y="208" text-anchor="middle">tcp/6443 Kubernetes API</text>
+  <text x="245" y="228" text-anchor="middle">tcp/50000 Talos API</text>
+  <text x="245" y="250" text-anchor="middle" font-size="12" fill="#5b6472">frontend rule rejects every other source</text>
+
+  <rect x="480" y="160" width="350" height="104" rx="8" fill="#f3f5f8" stroke="#5b6472"/>
+  <text x="655" y="186" text-anchor="middle" font-weight="600">Managed load balancer — CCM</text>
+  <text x="655" y="208" text-anchor="middle">http/80 → 443, https/443</text>
+  <text x="655" y="228" text-anchor="middle">TLS cert for its own hostname</text>
+  <text x="655" y="250" text-anchor="middle" font-size="12" fill="#5b6472">created from the Gateway's Service</text>
+
+  <!-- private network -->
+  <rect x="70" y="300" width="760" height="252" rx="10" fill="#fafbfc" stroke="#9aa4b2" stroke-dasharray="5 4"/>
+  <text x="86" y="326" font-size="12" font-weight="600" fill="#5b6472">SDN · 10.10.0.0/24</text>
+  <text x="814" y="542" text-anchor="end" font-size="12" font-style="italic" fill="#5b6472">no node has a public interface</text>
+
+  <rect x="90" y="346" width="230" height="170" rx="8" fill="#eef1f6" stroke="#5b6472"/>
+  <text x="205" y="378" text-anchor="middle" font-weight="600">cp-0</text>
+  <text x="205" y="400" text-anchor="middle">10.10.0.11</text>
+  <text x="205" y="426" text-anchor="middle" font-size="12" fill="#5b6472">STARTER-2xCPU-4GB</text>
+  <text x="205" y="448" text-anchor="middle" font-size="12" fill="#5b6472">control plane · etcd</text>
+
+  <rect x="335" y="346" width="230" height="170" rx="8" fill="#eef1f6" stroke="#5b6472"/>
+  <text x="450" y="378" text-anchor="middle" font-weight="600">worker-0</text>
+  <text x="450" y="400" text-anchor="middle">10.10.0.31</text>
+  <text x="450" y="426" text-anchor="middle" font-size="12" fill="#5b6472">STARTER-2xCPU-4GB</text>
+  <text x="450" y="448" text-anchor="middle" font-size="12" fill="#5b6472">Gateway envoy · LiteLLM</text>
+
+  <rect x="580" y="346" width="230" height="170" rx="8" fill="#eaf0fb" stroke="#3b5bdb"/>
+  <text x="695" y="378" text-anchor="middle" font-weight="600">gpu-worker-0</text>
+  <text x="695" y="400" text-anchor="middle">10.10.0.51</text>
+  <text x="695" y="426" text-anchor="middle" font-size="12" fill="#5b6472">GPU-SPOT-8xCPU-64GB</text>
+  <text x="695" y="448" text-anchor="middle" font-size="12" fill="#5b6472">1 × L40S · spot</text>
+  <text x="695" y="470" text-anchor="middle" font-size="12" fill="#5b6472">100 GB standard disk</text>
+
+  <!-- bottom row -->
+  <rect x="70" y="596" width="215" height="74" rx="8" fill="#f3f5f8" stroke="#5b6472"/>
+  <text x="177" y="622" text-anchor="middle" font-weight="600">Private templates</text>
+  <text x="177" y="642" text-anchor="middle" font-size="12" fill="#5b6472">Talos · Talos + NVIDIA</text>
+  <text x="177" y="660" text-anchor="middle" font-size="12" fill="#5b6472">built by packer/</text>
+
+  <rect x="330" y="596" width="240" height="74" rx="8" fill="#f3f5f8" stroke="#5b6472"/>
+  <text x="450" y="622" text-anchor="middle" font-weight="600">Router + NAT gateway</text>
+  <text x="450" y="642" text-anchor="middle" font-size="12" fill="#5b6472">nodes' default route</text>
+  <text x="450" y="660" text-anchor="middle" font-size="12" fill="#5b6472">carries all egress</text>
+
+  <rect x="615" y="596" width="215" height="74" rx="8" fill="#fff6e9" stroke="#c47d1a"/>
+  <text x="722" y="622" text-anchor="middle" font-weight="600">Block storage</text>
+  <text x="722" y="642" text-anchor="middle" font-size="12" fill="#5b6472">attached per PVC</text>
+  <text x="722" y="660" text-anchor="middle" font-size="12" fill="#5b6472">by the CSI driver</text>
+
+  <!-- internet -->
+  <rect x="300" y="748" width="300" height="56" rx="8" fill="#f3f5f8" stroke="#5b6472"/>
+  <text x="450" y="772" text-anchor="middle" font-weight="600">Internet</text>
+  <text x="450" y="792" text-anchor="middle" font-size="12" fill="#5b6472">ghcr.io · github.com · Hugging Face</text>
+
+  <!-- edges -->
+  <g stroke="#5b6472" stroke-width="1.6" fill="none" marker-end="url(#arrow)">
+    <path d="M360,72 L250,156"/>
+    <path d="M540,72 L650,156"/>
+    <path d="M245,264 L250,342"/>
+    <path d="M600,264 L470,342"/>
+    <path d="M690,264 L697,342"/>
+    <path d="M450,552 V592"/>
+    <path d="M450,670 V744"/>
+  </g>
+  <g stroke="#5b6472" stroke-width="1.6" fill="none" stroke-dasharray="5 4" marker-end="url(#arrow)">
+    <path d="M177,596 V556"/>
+    <path d="M722,596 V556"/>
+  </g>
+
+  <text x="268" y="100" text-anchor="end" font-size="12" fill="#5b6472">kubectl · talosctl</text>
+  <text x="632" y="100" font-size="12" fill="#5b6472">https · /llm</text>
+  <text x="462" y="730" font-size="12" fill="#5b6472">egress</text>
+</svg>
